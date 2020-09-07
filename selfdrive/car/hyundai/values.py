@@ -4,7 +4,7 @@ Ecu = car.CarParams.Ecu
 
 # Steer torque limits
 class SteerLimitParams:
-  STEER_MAX = 255   # 409 is the max, 255 is stock
+  STEER_MAX = 409   # 409 is the max, 255 is stock
   STEER_DELTA_UP = 3
   STEER_DELTA_DOWN = 7
   STEER_DRIVER_ALLOWANCE = 50
@@ -161,10 +161,10 @@ CHECKSUM = {
 FEATURES = {
   "use_cluster_gears": [CAR.ELANTRA, CAR.KONA, CAR.ELANTRA_GT_I30],     # Use Cluster for Gear Selection, rather than Transmission
   "use_tcu_gears": [CAR.KIA_OPTIMA, CAR.SONATA_2019],                                    # Use TCU Message for Gear Selection
-  "use_elect_gears": [CAR.KIA_OPTIMA_H, CAR.KONA_EV, CAR.GRANDEUR_H_19], # Use TCU Message for Gear Selection
+  "use_elect_gears": [CAR.KIA_OPTIMA_H, CAR.KONA_EV, CAR.GRANDEUR_H_19, CAR.GRANDEUR_H_20], # Use TCU Message for Gear Selection
 }
 
-EV_HYBRID = [CAR.KONA_EV,CAR.GRANDEUR_H_19]
+EV_HYBRID = [CAR.KONA_EV,CAR.GRANDEUR_H_19, CAR.GRANDEUR_H_20]
 
 DBC = {
   CAR.ELANTRA: dbc_dict('hyundai_kia_generic', None),
