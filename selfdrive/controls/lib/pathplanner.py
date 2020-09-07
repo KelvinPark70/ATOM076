@@ -13,9 +13,6 @@ from cereal import log
 from selfdrive.car.hyundai.interface import CarInterface
 import common.log as trace1
 
-
-
-
 LaneChangeState = log.PathPlan.LaneChangeState
 LaneChangeDirection = log.PathPlan.LaneChangeDirection
 

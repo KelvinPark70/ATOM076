@@ -187,4 +187,4 @@ DBC = {
   CAR.GRANDEUR_H_20: dbc_dict('hyundai_kia_generic', None),
 }
 
-STEER_THRESHOLD = 80
+STEER_THRESHOLD = 500

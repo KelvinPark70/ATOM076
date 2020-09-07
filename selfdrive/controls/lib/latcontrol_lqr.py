@@ -6,8 +6,13 @@ from cereal import log
 from common.numpy_fast import interp
 from selfdrive.config import Conversions as CV
 
+import common.log as trace1
+
 class LatControlLQR():
   def __init__(self, CP):
+
+    self.trLQR = trace1.Loger("076ATOM_LQR_ctrl")
+    
     self.scale = CP.lateralTuning.lqr.scale
     self.ki = CP.lateralTuning.lqr.ki
 
@@ -77,9 +82,12 @@ class LatControlLQR():
 
     v_ego_kph = CS.vEgo * CV.MS_TO_KPH
     self.ki, self.scale = self.atom_tune( v_ego_kph, CS.steeringAngle, CP )
+    log_ki = self.ki
+    log_scale = self.scale
 
     # Subtract offset. Zero angle should correspond to zero torque
     self.angle_steers_des = path_plan.angleSteers - path_plan.angleOffset
+    log_angle_steers_des =  self.angle_steers_des
     steering_angle -= path_plan.angleOffset
 
     # Update Kalman filter
@@ -112,6 +120,7 @@ class LatControlLQR():
 
       self.output_steer = lqr_output + self.i_lqr
       self.output_steer = clip(self.output_steer, -steers_max, steers_max)
+      log_output_steer = self.output_steer
 
     check_saturation = (CS.vEgo > 10) and not CS.steeringRateLimited and not CS.steeringPressed
     saturated = self._check_saturation(self.output_steer, check_saturation, steers_max)
@@ -121,4 +130,8 @@ class LatControlLQR():
     lqr_log.output = self.output_steer
     lqr_log.lqrOutput = lqr_output
     lqr_log.saturated = saturated
+
+    str2 = '{}/{}/{}/{}/{}/{}/{}/{}'.format( v_ego_kph, steers_max, torque_scale, log_ki, log_scale, steering_angle, log_angle_steers_des, log_output_steer)
+    self.trLQR.add( str2 ) 
+
     return self.output_steer, float(self.angle_steers_des), lqr_log
