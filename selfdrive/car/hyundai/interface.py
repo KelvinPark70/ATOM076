@@ -100,7 +100,7 @@ class CarInterface(CarInterfaceBase):
       #ret.lateralTuning.indi.timeConstant = 1.0
       #ret.lateralTuning.indi.actuatorEffectiveness = 1.5
 
-      elif candidate == CAR.SANTA_FE:
+    elif candidate == CAR.SANTA_FE:
       ret.lateralTuning.pid.kf = 0.00005
       ret.mass = 3982. * CV.LB_TO_KG + STD_CARGO_KG
       ret.wheelbase = 2.766
