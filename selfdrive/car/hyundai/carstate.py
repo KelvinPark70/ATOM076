@@ -6,12 +6,7 @@ from selfdrive.config import Conversions as CV
 from selfdrive.car.hyundai.spdcontroller  import SpdController
 from selfdrive.car.hyundai.values import Buttons
 
-
 GearShifter = car.CarState.GearShifter
-
-
-
-
 
 class CarState(CarStateBase):
   def __init__(self, CP):
@@ -28,7 +23,7 @@ class CarState(CarStateBase):
 
     self.main_on = False
     self.acc_active = False
-    self.cruiseState_modeSel = 0
+    self.cruiseState_modeSel = 2
 
     self.Mdps_ToiUnavail = 0
 
@@ -75,7 +70,6 @@ class CarState(CarStateBase):
 
     ret.leftBlinker, ret.rightBlinker = self.update_blinker(cp)
 
-
     self.lead_distance = cp.vl["SCC11"]['ACC_ObjDist']
     lead_objspd = cp.vl["SCC11"]['ACC_ObjRelSpd']
     self.lead_objspd = lead_objspd * CV.MS_TO_KPH
@@ -117,7 +111,6 @@ class CarState(CarStateBase):
     else:
       ret.cruiseState.speed = 0
 
-
     # TODO: Find brake pressure
     ret.brake = 0
     ret.brakePressed = cp.vl["TCS13"]['DriverBraking'] != 0
@@ -139,8 +132,6 @@ class CarState(CarStateBase):
 
     # Blind Spot Detection and Lane Change Assist signals
     ret.leftBlindspot, ret.rightBlindspot = self.get_Blindspot( cp )
-
-
 
     # save the entire LKAS11 and CLU11
     self.lkas11 = cp_cam.vl["LKAS11"]
